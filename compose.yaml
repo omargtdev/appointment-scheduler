@@ -1,0 +1,12 @@
+services:
+  db:
+    build: src/db
+    ports:
+      - "1433:1433"
+    restart: always
+    volumes:
+      - mssql-data:/var/opt/mssql
+         
+# Persist mssql data
+volumes:
+  mssql-data:
