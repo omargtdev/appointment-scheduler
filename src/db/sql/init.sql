@@ -21,7 +21,6 @@ AS
 PRINT '[' + @type + ']' + ': ' + @message;
 GO
 
-
 -- Creating database and credentials
 IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = 'AppointmentSchedulerLogin')
 BEGIN
@@ -32,15 +31,21 @@ ELSE
 	EXEC #uspTemp_Print 'WARN', '"AppointmentSchedulerLogin" login name already exists! Skipping creation...';
 GO
 
-
 IF NOT EXISTS(SELECT 1 FROM sys.databases WHERE name = 'AppointmentScheduler')
 BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Creating database "AppointmentScheduler".';
-
 	CREATE DATABASE AppointmentScheduler;
-	USE AppointmentScheduler;
+END
+ELSE
+	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler" database already exists! Skipping creation...';
+GO
 
-	-- DB Structure
+USE AppointmentScheduler;
+GO
+
+-- DB Structure
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'User')
+BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Creating table "AppointmentScheduler.dbo.User".';
 	CREATE TABLE [User] (
         [UserID] int PRIMARY KEY IDENTITY(1, 1),
@@ -51,14 +56,26 @@ BEGIN
         [Age] int,
         [Active] bit NOT NULL DEFAULT (1)
     );
+END
+ELSE
+	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler.dbo.User" already exists! Skipping creation....';
+GO
 
-	EXEC #uspTemp_Print 'INFO', 'Creating table "AppointmentScheduler.dbo.State".';
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'AppointmentState')
+BEGIN
+	EXEC #uspTemp_Print 'INFO', 'Creating table "AppointmentScheduler.dbo.AppointmentState".';
     CREATE TABLE [AppointmentState] (
-        [AppointmentStateID] int PRIMARY KEY,
+        [AppointmentStateID] smallint PRIMARY KEY,
         [Name] varchar(20) NOT NULL,
         [Description] varchar(200)
     );
+END
+ELSE
+	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler.dbo.AppointmentState" already exists! Skipping creation...';
+GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Contact')
+BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Creating table "AppointmentScheduler.dbo.Contact".';
     CREATE TABLE [Contact] (
         [ContactID] int PRIMARY KEY IDENTITY(1, 1),
@@ -66,37 +83,37 @@ BEGIN
         [Nickname] varchar(50),
         [PhoneNumber] varchar(15),
         [Email] varchar(320),
-        [ContactUserID] int NOT NULL
+        [ContactUserID] int NOT NULL,
     );
+	ALTER TABLE [Contact] ADD CONSTRAINT [FK_Contact_UserID] FOREIGN KEY ([ContactUserID]) REFERENCES [User] ([UserID]);
+END
+ELSE
+	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler.dbo.Contact" already exists! Skipping creation...';
+GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Appointment')
+BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Creating table "AppointmentScheduler.dbo.Appointment".';
     CREATE TABLE [Appointment] (
         [AppointmentID] int PRIMARY KEY IDENTITY(1, 1),
-        [Subject] varchar(20) NOT NULL,
+        [Subject] varchar(50) NOT NULL,
         [Date] date NOT NULL,
         [Time] time NOT NULL,
         [Notes] text,
-        [AppointmentStateID] int NOT NULL,
+        [AppointmentStateID] smallint NOT NULL,
         [AppointmentContactID] int,
         [AppointmentUserID] int NOT NULL,
         [CreatedAt] datetime NOT NULL DEFAULT GETDATE(),
-        [UpdatedAt] datetime
+        [UpdatedAt] datetime,
     );
-
-    ALTER TABLE [Contact] ADD CONSTRAINT [FK_Contact_UserID] FOREIGN KEY ([ContactUserID]) REFERENCES [User] ([UserID]);
-
-    ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_ContactID] FOREIGN KEY ([AppointmentContactID]) REFERENCES [Contact] ([ContactID]);
-
-    ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_UserID] FOREIGN KEY ([AppointmentUserID]) REFERENCES [User] ([UserID]);
-
-    ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_AppointmentStateID] FOREIGN KEY ([AppointmentStateID]) REFERENCES [AppointmentState] ([AppointmentStateID]);
+	ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_ContactID] FOREIGN KEY ([AppointmentContactID]) REFERENCES [Contact] ([ContactID]);
+	ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_UserID] FOREIGN KEY ([AppointmentUserID]) REFERENCES [User] ([UserID]);
+	ALTER TABLE [Appointment] ADD CONSTRAINT [FK_Appointment_AppointmentStateID] FOREIGN KEY ([AppointmentStateID]) REFERENCES [AppointmentState] ([AppointmentStateID]);
 END
 ELSE
-	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler" database already exists! Skipping creation...';
+	EXEC #uspTemp_Print 'WARN', '"AppointmentScheduler.dbo.Appointment" already exists! Skipping creation...';
 GO
 
-
-USE AppointmentScheduler;
 IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'AppointmentSchedulerUser')
 BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Creating user "AppointmentSchedulerUser" on database "AppointmentScheduler".';
@@ -106,7 +123,6 @@ END
 ELSE
 	EXEC #uspTemp_Print 'WARN', '"AppointmentSchedulerUser" user already exists on database "AppointmentScheduler"! Skipping creation...';
 GO
-
 
 -- Removing temporals
 USE MASTER;

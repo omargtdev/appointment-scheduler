@@ -14,9 +14,7 @@ AS
 PRINT '[' + @type + ']' + ': ' + @message;
 GO
 
-
 -- Deleting database andcredentials
-USE MASTER;
 IF EXISTS(SELECT 1 FROM sys.databases WHERE name = 'AppointmentScheduler')
 BEGIN
 	EXEC #uspTemp_Print 'INFO', 'Deleting database "AppointmentScheduler" (Including "AppointmentSchedulerUser" user).';
@@ -37,6 +35,5 @@ ELSE
 GO
 
 -- Removing temporals
-USE MASTER;
 DROP PROCEDURE #uspTemp_Print;
 GO
