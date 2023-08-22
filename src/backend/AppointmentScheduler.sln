@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.API", "AppointmentScheduler.API\AppointmentScheduler.API.csproj", "{D25034CC-B6CB-4BB7-B2B8-B15873395D5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Service", "AppointmentScheduler.Service\AppointmentScheduler.Service.csproj", "{A945C71D-E299-4D26-BE50-3632BC3F36CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Repository", "AppointmentScheduler.Repository\AppointmentScheduler.Repository.csproj", "{3153EA66-9E23-45F3-888A-01181C1AA1B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Database", "AppointmentScheduler.Database\AppointmentScheduler.Database.csproj", "{2ED21300-8250-43FE-8942-31DAC4D748C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{D25034CC-B6CB-4BB7-B2B8-B15873395D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D25034CC-B6CB-4BB7-B2B8-B15873395D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D25034CC-B6CB-4BB7-B2B8-B15873395D5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A945C71D-E299-4D26-BE50-3632BC3F36CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A945C71D-E299-4D26-BE50-3632BC3F36CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A945C71D-E299-4D26-BE50-3632BC3F36CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A945C71D-E299-4D26-BE50-3632BC3F36CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3153EA66-9E23-45F3-888A-01181C1AA1B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3153EA66-9E23-45F3-888A-01181C1AA1B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3153EA66-9E23-45F3-888A-01181C1AA1B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3153EA66-9E23-45F3-888A-01181C1AA1B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
