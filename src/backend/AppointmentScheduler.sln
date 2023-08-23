@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Reposi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Database", "AppointmentScheduler.Database\AppointmentScheduler.Database.csproj", "{2ED21300-8250-43FE-8942-31DAC4D748C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Util", "AppointmentScheduler.Util\AppointmentScheduler.Util.csproj", "{F297981D-95C9-4507-8C16-45A2C0087285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED21300-8250-43FE-8942-31DAC4D748C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F297981D-95C9-4507-8C16-45A2C0087285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F297981D-95C9-4507-8C16-45A2C0087285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F297981D-95C9-4507-8C16-45A2C0087285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F297981D-95C9-4507-8C16-45A2C0087285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
