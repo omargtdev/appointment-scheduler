@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AppointmentScheduler.Repository\AppointmentScheduler.Repository.csproj" />
+    <ProjectReference Include="..\AppointmentScheduler.Util\AppointmentScheduler.Util.csproj" />
+  </ItemGroup>
+
 </Project>
